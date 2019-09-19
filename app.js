@@ -19,35 +19,7 @@ var nextArrival = "";
 var minsAway = "whatevs";
 var database = firebase.database();
 
-database.ref().set({
-    name: "",
-    destination: "",
-    nextArrival: "",
-    frequency: ""
-})
 
-var newRow = function(data1,data2,data3,data4){
-    var theRow = $("#allTrains").append("<tr class='newRow'>");
-    var td1 = $("<td class='newItem'>").text(data1);
-    var td2 = $("<td class='newItem'>").text(data2);
-    var td3 = $("<td class='newItem'>").text(data3);
-    var td4 = $("<td class='newItem'>").text(data4);
-    //var td5 = $("<td class='newItem'>").text(data5);
-    theRow.append(td1,td2,td3,td4);
-}
-
-// event listener for new data in database
-database.ref().on("value", function (snapshot) {
-
-    var newTrainName = snapshot.val().name;
-    var newDestination = snapshot.val().destination;
-    var newFrequency = snapshot.val().frequency;
-    var newArrival = snapshot.val().nextArrival;
-    
-     // display values in a new row
-    newRow(newTrainName,newDestination,newFrequency,newArrival); 
-    console.log(newTrainName);
- })
 
 // Event listenter for form submits
 $("#submitButton").on("click", function (event) {
@@ -58,13 +30,32 @@ $("#submitButton").on("click", function (event) {
     frequency = $("#frequencyInput").val().trim();
     nextArrival = $("#trainTimeInput").val().trim();
     // push values to database
-    database.ref().set({
+    var newTrain = {
         name: trainName,
         destination: destination,
         nextArrival: nextArrival,
         frequency: frequency
+    }
+    database.ref().push(newTrain);
     })
-    console.log(trainName);
-})
 
+
+   // event listener for new data in database
+    database.ref().on("child_added", function (snapshot) {
+    
+        var newTrainName = snapshot.val().name;
+        var newDestination = snapshot.val().destination;
+        var newFrequency = snapshot.val().frequency;
+        var newArrival = snapshot.val().nextArrival;
+        
+         // display values in a new row
+        // newRow(newTrainName,newDestination,newFrequency,newArrival); 
+        var row = $("<tr class='newRow'>");
+    var td1 = $("<td class='newItem'>").text(newTrainName);
+    var td2 = $("<td class='newItem'>").text(newDestination);
+    var td3 = $("<td class='newItem'>").text(newFrequency);
+    var td4 = $("<td class='newItem'>").text(newArrival);
+    //var td5 = $("<td class='newItem'>").text(data5);
+    $("#allTrains").append($(row).append(td1,td2,td3,td4));
+     })
 
