@@ -29,7 +29,7 @@ $("#submitButton").on("click", function (event) {
     destination = $("#destinationInput").val().trim();
     frequency = $("#frequencyInput").val().trim();
     firstTrain = $("#trainTimeInput").val().trim();
-    
+
     // push values to database
     var newTrain = {
         name: trainName,
@@ -38,38 +38,35 @@ $("#submitButton").on("click", function (event) {
         frequency: frequency
     }
     database.ref().push(newTrain);
-    $("#trainNameInput").text();
-    $("#destinationInput").text();
-    $("#frequencyInput").text();
-    $("#trainTimeInput").text();
-    })
+    // I couldn't quite figure out how to clear the input forms. I tried .empty .reset and .clear for each input field but no luck.
+
+})
 
 
-   // event listener for new data in database
-    database.ref().on("child_added", function (snapshot) {
-    
-        var newTrainName = snapshot.val().name;
-        var newDestination = snapshot.val().destination;
-        var newFrequency = snapshot.val().frequency;
-        //calculate when the next train is
-        var newFirstTrain = snapshot.val().firstTrain;
-        var currentTime = moment().format("hh:mm");
-        var firstTrainConverted = moment(newFirstTrain, "HH:mm").subtract(1, "years");
-        var diffTime = moment().diff(moment(firstTrainConverted), "minutes");
-        var remainder = diffTime % newFrequency;
-        minsAway = newFrequency - remainder;
-        // calculate how many minutes away next train is from NOW
-        var newArrival = (moment().add(minsAway, "minutes")).format("hh:mm");
-       
-         // display values in a new row
-        // newRow(newTrainName,newDestination,newFrequency,newArrival); 
-        var row = $("<tr class='newRow'>");
+// event listener for new data in database
+database.ref().on("child_added", function (snapshot) {
+
+    var newTrainName = snapshot.val().name;
+    var newDestination = snapshot.val().destination;
+    var newFrequency = snapshot.val().frequency;
+    //calculate when the next train is
+    var newFirstTrain = snapshot.val().firstTrain;
+    var firstTrainConverted = moment(newFirstTrain, "HH:mm").subtract(1, "years");
+    var diffTime = moment().diff(moment(firstTrainConverted), "minutes");
+    var remainder = diffTime % newFrequency;
+    minsAway = newFrequency - remainder;
+    // calculate how many minutes away next train is from NOW
+    var newArrival = (moment().add(minsAway, "minutes")).format("hh:mm");
+    //I didn't quite master confirming that the input was in a certain format or dealing with AM versus PM
+
+    // display values in a new row
+    var row = $("<tr class='newRow'>");
     var td1 = $("<td class='newItem'>").text(newTrainName);
     var td2 = $("<td class='newItem'>").text(newDestination);
     var td3 = $("<td class='newItem'>").text(newFrequency);
     var td4 = $("<td class='newItem'>").text(newArrival);
     var td5 = $("<td class='newItem'>").text(minsAway)
-    //var td5 = $("<td class='newItem'>").text(data5);
-    $("#allTrains").append($(row).append(td1,td2,td3,td4,td5));
-     })
+
+    $("#allTrains").append($(row).append(td1, td2, td3, td4, td5));
+})
 
