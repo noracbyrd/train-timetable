@@ -1,0 +1,25 @@
+.navbar {
+    background-color: #8a2727;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+.jumbotron {
+    background-image: url("images/jack-anstey-XVoyX7l9ocY-unsplash.jpg");
+    background-size: cover;
+    color: white;
+    font-weight: bold;
+  }
+  h3{
+      font-weight: bold;
+  }
+h6{
+    font-weight: bold;
+}
+#submitButton{
+    background-color: #520e0e;
+}
+#trainForm,#trainSchedule{
+    border: 2px solid #520e0e;
+    border-radius: 10px;
+}

@@ -20,17 +20,21 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">Train Timetable!</h1>
-            <p class="lead">For all your general train needs.</p>
+            <h3 class="display-4">Train Timetable!</h3>
+            <h6 class="lead">For all your general train needs.</h6>
+            <p>Photo by Jack Anstey on Unsplash</p>
+
         </div>
     </div>
     <div class="container">
+            <div id="trainSchedule">
         <div class="row">
             <div class="col-md-2">
                 <!--left empty on purpose for spacing-->
             </div>
+            
             <div class="col-md-8">
-                <nav class="navbar navbar-light bg-light">
+                <nav class="navbar">
                     Current Train Schedule
                 </nav>
                 <table class="table table-striped">
@@ -48,20 +52,23 @@
                     </tbody>
                 </table>
             </div>
+        
             <div class="col-md-2">
                 <!--left empty on purpose for spacing-->
             </div>
         </div>
+        </div>
     </div>
     <br>
     <div class="container">
+        <div id="trainForm">
         <div class="row">
             <div class="col-md-2">
                 <!--left empty on purpose for spacing-->
             </div>
             <div class="col-md-8">
                 <form>
-                    <nav class="navbar navbar-light bg-light">
+                    <nav class="navbar">
                         Add Train
                     </nav>
                     <br>
@@ -85,11 +92,13 @@
                     </div>
                     <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
                 </form>
+                <br>
             </div>
             <div class="col-md-2">
                 <!--left empty on purpose for spacing-->
             </div>
         </div>
+    </div>
     </div>
     <script src="app.js"></script>
 </body>

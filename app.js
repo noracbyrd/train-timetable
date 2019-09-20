@@ -38,6 +38,10 @@ $("#submitButton").on("click", function (event) {
         frequency: frequency
     }
     database.ref().push(newTrain);
+    $("#trainNameInput").text();
+    $("#destinationInput").text();
+    $("#frequencyInput").text();
+    $("#trainTimeInput").text();
     })
 
 
